@@ -1,6 +1,7 @@
 import codecs
 from bs4 import BeautifulSoup
 import pandas as pd
+from unidecode import unidecode
 
 NAME_IDX = 0
 STATE_IDX = 1
@@ -24,12 +25,12 @@ cards = document.body.find_all('div', class_='candidate-card-text')
 # loop through cards
 for i in range(len(cards)):
     cur_card = cards[i].find_all('li')
-    name = cur_card[NAME_IDX].text.split(' (')[0]
+    name = unidecode(cur_card[NAME_IDX].text.split(' (')[0])
     party = cur_card[NAME_IDX].text.split(' (')[1].replace(')','')
     chamber = cur_card[CHAMBER_IDX].text
     if chamber == 'Senate':
         state = cur_card[STATE_IDX].text
-        district = 'NA'
+        district = None
     else:
         state = cur_card[STATE_IDX].text.split('-')[0]
         district = cur_card[STATE_IDX].text.split('-')[1]
