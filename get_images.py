@@ -35,7 +35,7 @@ for i, (k, v) in enumerate(links.items()):
     while True:
         r = requests.get(base_url+'/'+v)
         if r.status_code == 200:
-            with open('images/'+k+'.jpg', 'wb') as f:
+            with open('images/'+unidecode(k)+'.jpg', 'wb') as f:
                 f.write(r.content)
             break
         else:
