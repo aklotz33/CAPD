@@ -130,15 +130,15 @@ vae.summary()
 # load dataset
 """ (x_train, _), (x_test, y_test) = cifar10.load_data()
 x_train = x_train.astype('float32') / 255.
-x_train = x_train.reshape((x_train.shape[0],) + original_img_size)
+x_train = x_train.reshape((x_train.shape[0],) + original_img_size))
 x_test = x_test.astype('float32') / 255.
-x_test = x_test.reshape((x_test.shape[0],) + original_img_size) """
+x_test = x_test.reshape((x_test.shape[0],) + original_img_size)) """
 
 full_array = np.load('image_array.npy')
 num_images = full_array.shape[0]
 # 90 10 train val split
 n_train_images = round(num_images(0.9))
-idx = random.sample(xrange(0, num_images, num_images)
+idx = random.sample(range(0, num_images, num_images))
 x_train = full_array[idx[:n_train_images], :, :, :]
 x_test = full_array[idx[n_train_images:], :, :, :]
 
