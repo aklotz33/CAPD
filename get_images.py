@@ -4,6 +4,7 @@ import re
 from collections import defaultdict
 import time
 import os
+from unidecode import unidecode
 
 
 def progress_bar(current, total, label='', length=40):
