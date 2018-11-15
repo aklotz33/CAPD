@@ -3,6 +3,7 @@
 import glob
 import cv2
 import numpy as np
+from unidecode import unidecode
 
 img_path = "images/*.jpg"
 scale_factor = 0.2
@@ -28,22 +29,21 @@ for i in range(len(imgs)):
     file_names.append(imgs[i])
     if n is None:
         print('Got a bad logo')
-        bad_logos.append(imgs[i])
-        n = np.zeros(shape=(im_rows,im_cols,im_channels))
-    else:
-        n = cv2.resize(n, (im_rows, im_cols)) 
+        n = cv2.imread(unidecode(imgs[i]))
+    
+    n = cv2.resize(n, (im_rows, im_cols)) 
 
     cv_img[i,:,:,:] = n
 
 
 np.save('image_array', cv_img)
 
-with open('bad_logos.txt', 'w') as f:
+""" with open('bad_logos.txt', 'w') as f:
     for item in bad_logos:
-        f.write("%s\n" % item)
+        f.write("%s\n" % item) """
 
 
-with open('your_file.txt', 'w') as f:
+with open('file_names.txt', 'w') as f:
     for item in file_names:
         f.write("%s\n" % item)
 
