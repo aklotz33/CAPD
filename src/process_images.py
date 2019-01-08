@@ -35,7 +35,7 @@ for i in range(len(imgs)):
     cv_img[i,:,:,:] = n
 
 
-np.save('image_array', cv_img)
+np.save('../data/image_array.npy', cv_img)
 
 if not os.path.exists('../logs/'):
     os.mkdir('../logs/')
