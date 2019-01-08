@@ -16,7 +16,7 @@ from keras.datasets import cifar10
 #https://github.com/chaitanya100100/VAE-for-Image-Generation/blob/master/src/cifar10_train.py
 
 # import parameters
-from capd_image_params import *
+from src.capd_image_params import *
 
 # tensorflow uses channels_last
 # theano uses channels_first
