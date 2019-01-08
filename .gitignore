@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
 __pycache__/
-images/
 .ipynb_checkpoints/
+tsne.ipynb
+
