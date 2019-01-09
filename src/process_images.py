@@ -1,13 +1,13 @@
-import glob
+from pathlib import Path
 import cv2
 import numpy as np
-import os
+from subprocess import check_output
 
-img_path = "../images/*.jpg"
+repo_dir = Path(check_output('git rev-parse --show-toplevel', shell=True, universal_newlines=True).strip())
 scale_factor = 0.2
 
 # load one image
-imgs = glob.glob(img_path)
+imgs = list(map(str, Path(repo_dir/'images').glob('*.jpg')))
 im = cv2.imread(imgs[0])
 
 """ cv2.imshow('image',im)
@@ -34,21 +34,16 @@ for i in range(len(imgs)):
 
     cv_img[i,:,:,:] = n
 
+(repo_dir/'data').mkdir(exist_ok=True)
+np.save(repo_dir/'data'/'image_array.npy', cv_img)
 
-np.save('../data/image_array.npy', cv_img)
-
-if not os.path.exists('../logs/'):
-    os.mkdir('../logs/')
-
-with open('../logs/bad_logos.txt', 'w') as f:
-    for item in bad_logos:
+with (repo_dir/'data'/'img_file_names.txt').open('w') as f:
+    for item in file_names:
         f.write("%s\n" % item)
 
-if not os.path.exists('../data/'):
-    os.mkdir('../data/')
-
-with open('../data/img_file_names.txt', 'w') as f:
-    for item in file_names:
+(repo_dir/'logs').mkdir(exist_ok=True)
+with (repo_dir/'logs'/'bad_logos.txt').open('w') as f:
+    for item in bad_logos:
         f.write("%s\n" % item)
 
 print('done')
