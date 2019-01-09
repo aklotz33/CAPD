@@ -1,9 +1,11 @@
 import os
 import cv2
 
+from .util import REPO_STR
 
-img_path = '../images/'
-downscaled_path = '../downscaled_images/'
+
+img_path = REPO_STR + '/images'
+downscaled_path = REPO_STR + '/downscaled_images'
 
 if not os.path.exists(downscaled_path):
     os.mkdir(downscaled_path)

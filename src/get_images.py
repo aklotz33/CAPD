@@ -1,10 +1,13 @@
-from bs4 import BeautifulSoup
-import requests
-import re
+import os
 from collections import defaultdict
 import time
-import os
+import requests
+import re
+
 from unidecode import unidecode
+from bs4 import BeautifulSoup
+
+from .util import REPO_STR
 
 
 def progress_bar(current, total, label='', length=40):
@@ -14,7 +17,7 @@ def progress_bar(current, total, label='', length=40):
 
 # Need to manually download raw_html.html from https://www.politicsanddesign.com/ by scrolling to the bottom.
 # Could replace with Selenium to get the html with Python
-with open('../data/pretty_html.html') as f:
+with open(REPO_STR+'/data/pretty_html.html') as f:
     bs = BeautifulSoup(f, features='lxml')
 
 # Find all of the "Campaign" images
@@ -27,17 +30,17 @@ for name in people:
     key = name['alt'].replace('Campaign logo for ', '').replace(' ', '_').replace('.', '')
     links[key] = name['src'].split(' ')[0]
 
-# Make images/ directory to store images
-if not os.path.exists('../images'):
-    os.mkdir('../images')
+# Make /images directory to store images
+if not os.path.exists(REPO_STR+'/images'):
+    os.mkdir(REPO_STR+'/images')
 # Loop through all the names and link suffixes to request images and save to images/name.jpg
 base_url = 'https://www.politicsanddesign.com'
 for i, (k, v) in enumerate(links.items()):
     progress_bar(i, len(links), label=k)
     while True:
-        r = requests.get(base_url+'/'+v)
+        r = requests.get(''.join([base_url, '/', v]))
         if r.status_code == 200:
-            with open('../images/'+unidecode(k)+'.jpg', 'wb') as f:
+            with open(''.join([REPO_STR, '/images/', unidecode(k), '.jpg']), 'wb') as f:
                 f.write(r.content)
             break
         else:

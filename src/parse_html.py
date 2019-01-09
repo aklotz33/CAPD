@@ -1,8 +1,10 @@
-import codecs
-from bs4 import BeautifulSoup
-import pandas as pd
-from unidecode import unidecode
 import os
+import pandas as pd
+import codecs
+from unidecode import unidecode
+from bs4 import BeautifulSoup
+
+from .util import REPO_STR, REPO_PATH
 
 NAME_IDX = 0
 STATE_IDX = 1
@@ -18,7 +20,7 @@ COLOR_IDX = 7
 col_names =  ['Name', 'Party', 'Chamber', 'State', 'District', 'Sex', 'Font','Color','Status','Lean']
 my_df  = pd.DataFrame(columns = col_names)
 
-f=codecs.open("../data/pretty_html.html", 'r', 'utf-8')
+f=codecs.open(REPO_STR + '/data/pretty_html.html', 'r', 'utf-8')
 document= BeautifulSoup(f.read())
 
 cards = document.body.find_all('div', class_='candidate-card-text')
@@ -54,6 +56,5 @@ for i in range(len(cards)):
                'Lean':lean}
     my_df.loc[len(my_df)] = cur_row 
 
-if not os.path.exists('../data/'):
-    os.mkdir('../data/')
-my_df.to_pickle("../data/candidate-df.pb")
+(REPO_PATH/'data').mkdir(exist_ok=True)
+my_df.to_pickle(REPO_STR + '/data/candidate-df.pb')
