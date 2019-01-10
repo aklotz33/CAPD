@@ -2,7 +2,7 @@ import numpy as np
 from pathlib import Path
 import cv2
 
-from src.util import REPO_PATH
+from util import REPO_PATH
 
 
 scale_factor = 0.2
