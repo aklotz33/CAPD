@@ -4,7 +4,7 @@ import codecs
 from unidecode import unidecode
 from bs4 import BeautifulSoup
 
-from .util import REPO_STR, REPO_PATH
+from src.util import REPO_STR, REPO_PATH
 
 NAME_IDX = 0
 STATE_IDX = 1

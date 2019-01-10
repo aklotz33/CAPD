@@ -2,7 +2,7 @@ import numpy as np
 from pathlib import Path
 import cv2
 
-from .util import REPO_PATH
+from src.util import REPO_PATH
 
 
 scale_factor = 0.2
@@ -24,15 +24,14 @@ cv_img = np.zeros(shape=(len(im), im_rows, im_cols, im_channels))
 bad_logos = list()
 file_names = list()
 for i in range(len(imgs)):
-    n= cv2.imread(imgs[i])
+    n = cv2.imread(imgs[i])
     file_names.append(imgs[i])
     if n is None:
         print('Got a bad logo')
         bad_logos.append(imgs[i])
         n = np.zeros(shape=(im_rows,im_cols,im_channels))
     else:
-        n = cv2.resize(n, (im_rows, im_cols)) 
-
+        n = cv2.resize(n, (im_rows, im_cols))
     cv_img[i,:,:,:] = n
 
 (REPO_PATH/'data').mkdir(exist_ok=True)

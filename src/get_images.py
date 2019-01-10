@@ -7,7 +7,7 @@ import re
 from unidecode import unidecode
 from bs4 import BeautifulSoup
 
-from .util import REPO_STR
+from src.util import REPO_STR
 
 
 def progress_bar(current, total, label='', length=40):
